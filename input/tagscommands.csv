@@ -1,0 +1,46 @@
+t;trash. will be deleted. Eg: noise, non-speech;trash
+s;speech which does not belong to a dialog;speech
+e;emotional speech, e.g. ach so!;emotional speech
+q;question which does not belong to a dialog;speech-question
+l;laughter only, or speech+laughter;laughter
+f;short affirmations: ok, ja, hmm, gut, alles klar, genau... ;(short affirmation, old ok)
+d;speech that belongs to semi-spontaneous dialog;(old s)
+1a;Krankenversicherung (a);Guten Tag, mein Name ist Schmidt. Ich hab eine Frage...
+1b;Krankenversicherung (b);Meine Vertragsnummer ist die 4035.
+1c;Krankenversicherung (c);Ich hab von meinem Hausarzt ein Rezept...
+1d;Krankenversicherung (d);Alles klar, Dankeschˆn!
+2a;Telefontarif (a);Guten Tag, mein Name ist Eckhard. Ich hab eine Frage...
+2b;Telefontarif (b);Ich hab in meinem Vertrag viele Frei-SMS,..
+2c;Telefontarif (c);Ja, vielen Dank. Auf Wiederhˆren.
+3a;Mietwagen (a);Guten Tag, mein Name ist Weinmann. Ich habe eine Frage zu...
+3b;Mietwagen (b);Einen Moment. Das ist die 3423.
+3c;Mietwagen (c);Ich habe mir f¸År n‰chste Woche einen Umzugstransporter...
+3d;Mietwagen (d);Ach super, dann passt das wohl...
+4a;Wohnungsgesellschaft (a);Guten Tag, mein Name ist Hoffmann. Ich habe eine Frage... 
+4b;Wohnungsgesellschaft (b);Die Nummer  lautet 4011. 
+4c;Wohnungsgesellschaft (c);Wie Sie wahrscheinlich sehen, hab ich das Mietverh‰ltnis... 
+4d;Wohnungsgesellschaft (d);Alles klar. Vielen Dank f¸r die Auskunft.
+5;Autovermietung;(Autovermietung - Pfeifer, spontaneous)
+6;Pizzaservice;(Pizzaservice - Clemens, spontaneous)
+7;Bibliothek;(Bibliothek - H¸llstrung, spontaneous)
+8;Arzttermin;(Arzttermin - Rheinhardt, spontaneous)
+ww;Word;Word
+ss;Sentence;Sentence
+dd;Digit;Digit
+gg;Story;Story
+aaa;sustained vowel "aaa";vowel
+comment;insert a comment;control
+info;inform about tags commands;control
+mcut;manual segmentation of this snippet;control
+glue;glue two snippets;control 
+cutagainbetter;the whole file needs better segmentation (a better threshold speech/noise);control
+cfront;just for this snippet: pick more noise/speech (front side) and then do 1x manualcut;control
+cback;just for this snippet: pick more noise/speech (back side) and then do 1x manualcut;control
+cutthismore;just for this snippet: pick more noise/speech (at both sides) and then do 2x manualcut;control
+play;play again;control
+save;save changes and go on;control
+quit;save and quit;control
+back;go back (to modify tag);control
+g;good dialog turn. The best one for the final version;building dialogs
+b;bad dialog turn. Interrupted or not natural or speaking mitake or noise,..;building dialogs
+changetag;change tag that was assigned in do_tagging;building dialogs
