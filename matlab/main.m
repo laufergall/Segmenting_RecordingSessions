@@ -125,7 +125,7 @@ end
 % mat files in the path where chunked information speech is stored
 files_mat=dir([path_chunked,'\*.mat']);
 
-% run f_tagging for all mat files (speakers) until the annotator inserts "no" or "quit"
+% in this loop: run f_tagging for all mat files (speakers) until the annotator inserts "no" or "quit"
 quit=0;
 for i=1:length(files_mat)
     
@@ -141,7 +141,7 @@ for i=1:length(files_mat)
             if strcmp(in,'yes')
                 
                 % tag the chunks corresponding to this speaker
-                isalltagged = f_tagging(files_mat(i), tagscommands, path_exported_sv56);
+                isalltagged = f_tagging(files_mat(i), tagscommands, path_chunked, path_exported_sv56);
                 
                 if isalltagged ==1
                     % update segmenting.mat
@@ -192,12 +192,12 @@ for spk= 1:length(files_mat)
     % check whether the session needs to be tagged
     if segmenting.isallwritten(found)==0
         
-        cd(path_chunked) % come back from database structure to path_chunked
-        
         % glue files recorded with standup mic
+        allwritten = f_glueingDialogs('standmic', file, hastalkback, path_chunked, path_exported, path_databasefinal);
+%
         allwritten = f_glueingDialogs_standmic(files_mat(spk), segmenting.hastalkback(found), path_exported, path_databasefinal_standmic);
         
-        % glue files recorded with standup mic
+        % glue files recorded with tablemic and headsetmic
         if segmenting.has3mics(found)
             f_glueingDialogs_tablemic(files_mat(spk), segmenting.hastalkback(found), path_exported, path_databasefinal_tablemic);
             f_glueingDialogs_headsetmic(files_mat(spk), segmenting.hastalkback(found), path_exported, path_databasefinal_headsetmic);

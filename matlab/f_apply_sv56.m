@@ -21,7 +21,6 @@ function f_apply_sv56(executables,filename,pathFrom,pathTo)
 % Laura Fernández Gallardo, PhD
 % <laura.fernandezgallardo@tu-berlin.de>
 % http://www.qu.tu-berlin.de/?id=lfernandez
-% Based on a script from Lars-Erik Riechert <lars-erik.riechert@campus.tu-berlin.de>
 % November 2016
 
 
