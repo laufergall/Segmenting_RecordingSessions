@@ -30,7 +30,7 @@ From main.m, all the following steps are run for each speech recording session:
 
 #### 1. Normalizing level
 
-* The speech from the whole recording session (from folder **'all_exported'**) is level-equalized to -26dB, using the voltmeter algorithm of ITU-T Rec. P.56. 
+* The speech from the whole recording session (from folder **'all_exported'**) is level-equalized to -26dB, using the voltmeter algorithm of ITU-T Rec. P.56. This is done by the **'f_apply_sv56()'** function.
 * Resulting level-equalized .wav files are stored in the **'all_exported_sv56'** folder.
 
 #### 2. Segmenting / Chunking
@@ -51,25 +51,10 @@ From main.m, all the following steps are run for each speech recording session:
 #### 4. Glueing
 
 The database wav files are created based on chunks and tags, and written following the database folder structure.
-* For each of the three microphones used in a session: 
+* For each of the three microphones used in a session, call **'f_glueingDialogs()'** :
 	* determine which tags correspond to the same speech element (e.g. scriped dialog, semi-spontaneous dialog, interaction,..).
-	* call **f_write_speech()** and **f_write_speech_interactions()** to write the speech  with the found tags in the database structure.
+	* call **'f_write_speech()'** and **'f_write_speech_interactions()'** to write the speech  with the found tags in the database structure.
 * This process is repeated for all sessions. As a result, the speech database is organized and ready to be shared!
-
-## Organization of scripts
-
-This diagram shows the sequential realization of the mentioned steps.
-
-```mermaid
-sequenceDiagram
-main ->> f_apply_sv56(): entire session (.wav)
-main ->> f_chunk_speech(): level-normalized entire session (.wav)
-main ->> f_tagging(): session's chunks (.mat)
-main ->> f_glueingDialogs(): tagged session' chunks (.mat)
-f_glueingDialogs() ->> f_write_speech(): chunk and tag information
-
-
-```
 
 
 ## Folder structure
