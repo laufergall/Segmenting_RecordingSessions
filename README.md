@@ -11,7 +11,7 @@ This repository contains Matlab scripts for:
 
 For details on the purpose of employing these scripts, see Section 2 of the [NSC Documentation](http://www.qu.tu-berlin.de/fileadmin/fg41/users/fernandez.laura/NSC_documentation_v01.pdf).
 
-**No audio** or means to recover the speech recording sessions are provided in this repository. Speakers names are pseudo anonymized.
+**No audio** or means to recover the speech recording sessions are provided in this repository. Speakers' names are pseudo anonymized.
 
 ## Steps
 

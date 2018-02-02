@@ -1,16 +1,30 @@
 
-% Write speech with fadein/fadeout for every segment
 
+function nframes = f_write_speech(wavpos, speech, fs, pathTo, filename, fileproblems)
+%
+% nframes = f_write_speech(wavpos, speech, fs, pathTo, filename, fileproblems)
+%
+% Write speech file with fadein/fadeout for every segment
+%
+% Input:
+%   wavpos: positions (frame numbers) that limit the chunks, corresponding
+%   to 'speech'
+%   speech: speech samples (full session) 
+%   fs: sampling frequency of 'speech'
+%   pathTo: where to audiowrite the generated file
+%   filename: name of the file to be written
+%   fileproblems: pointer to the txt file where to log possible problems
+%   encountered
+%
+% Output:
+%   nframes: total number of frames written, needed in f_glueingDialogs()
+%   to keep track of the amount of speech generated
+%
+% Laura Fernández Gallardo, PhD
+% <laura.fernandezgallardo@tu-berlin.de>
+% http://www.qu.tu-berlin.de/?id=lfernandez
+% November 2016
 
-function nframes = f_write_speech(wavpos, speech, fs, pathTo, filename, fileproblems )
-
-% wavpos=audio.wavpos(itagsd(t)); wavpos=audio.wavpos(itagsd);  speech=speech_standmic; fs = 48000;
-% pathTo='D:\Users\fernandez.laura\Downloads'; filename='holahola.wav';
-% test wavpos
-% [speech, fs1]=audioread('D:\Users\fernandez.laura\Documents\Work\WP1_Data_collection\Segmenting\Exported_test_sv56\hamhung_standmic_44_1k_sv56.wav');
-% [speech_standmic, fs]=audioread('D:\Users\fernandez.laura\Documents\Work\WP1_Data_collection\Segmenting\Exported_test_sv56\hamhung_standmic_44_1k_sv56.wav');
-% sound(final_speech,fs1)
-% sound(final_speech_faded, fs1)
 
 %% Parameters
 fade_length = 0.3; % seconds fade
@@ -58,7 +72,7 @@ final_speech=[sil_se; final_speech; sil_se];
 %% Write final_speech in the pathTo folder
 audiowrite([pathTo,'/',filename],final_speech,fs);
 
-
+%% Return number of frames of the written speech
 nframes = length(final_speech);
 
 

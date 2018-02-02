@@ -1,31 +1,30 @@
 
-% Write speech with fadein/fadeout for every segment
-
-
-% write stereo speech for interations. 
-% Channel a: recording assistant. Channel b: speaker. 
-% Called from f_glueingDialogs
-% No fading
-%   wavposa: wavpos for all turns for recording assistant
-%   wavposb: wavpos for all turns for speaker
-%   speechtb: speech talk back (recording assistant)
-%   speaker's speech, from one of the microphones
-%   fs: sampling frequency of the speech.
-%   pathTo: path where to write the resulting stereo file
-%   filename: filename of the stereo file
-
-
-
 function nframes = f_write_speech_interactions(wavposa, wavposbsil, speechtb, speech, fs, pathTo, filename)
+%
+% nframes = f_write_speech_interactions(wavposa, wavposbsil, speechtb, speech, fs, pathTo, filename)
+%
+% Write two speech files, corresponding to the speaker and to the
+% interlocutor, respectively. No fading.
+%
+% Input:
+%   wavpos: positions (frame numbers) that limit the chunks, corresponding
+%   to the interlocutor's turns
+%   wavposbsil, 
+%   speechtb: speech samples from the interlocutor (full session) 
+%   speech: speech samples from the speaker (full session) 
+%   fs: sampling frequency of 'speech' and of 'speechtb' 
+%   pathTo: where to audiowrite the generated files 
+%   filename: name of the file to be written
+%
+% Output:
+%   nframes: total number of frames written from the interlocutor's speech, 
+%   needed in f_glueingDialogs() to keep track of the amount of speech generated
+%
+% Laura Fernández Gallardo, PhD
+% <laura.fernandezgallardo@tu-berlin.de>
+% http://www.qu.tu-berlin.de/?id=lfernandez
+% November 2016
 
-% speech=speech_standmic; speechtb=speech_talkback; fs = 48000;
-% pathTo='D:\Users\fernandez.laura\Downloads'; filename='holahola.wav';
-
-
-%% Parameters
-% fade_length = 0.3; % seconds fade
-% fade_samples = round(fade_length.*fs); % figure out how many samples fade is over
-% fade_scale = linspace(0,1,fade_samples)'; % create fade
 
 % Silence segments
 seconds_se=0.5; % start and end
@@ -39,26 +38,20 @@ segmentb = speech(wavposa(1):wavposa(end)); % wavposb(end-1));
 % silence speech labelled as 't': noises, clearing up throat, speaker saying his own name... other non-speech events
 for i=1:2:length(wavposbsil)
 
-    % overwrite with zeros
     % sound(segmentb( (wavposbsil(i)- wavposa(1)):(wavposbsil(i+1)-wavposa(1))), 48000); % double-checking
     segmentb(  (wavposbsil(i)- wavposa(1)):(wavposbsil(i+1)- wavposa(1))  ) = zeros (length(wavposbsil(i):wavposbsil(i+1)),1);
-    
-%     if length(segmenta)-length(segmentb)~=0
-%     error
-%     end
+
 end
 
 % silence at start and at the end
 final_speecha=[sil_se; segmenta; sil_se];
 final_speechb=[sil_se; segmentb; sil_se];
 
-% better to make all mono files, no stereo
-% final_speech=[final_speecha, final_speechb];
 
-
-%% Write final_speech in the pathTo folder
+%% Write final_speech mono files in the pathTo folder
 audiowrite([pathTo,'/',filename,'_interlocutor.wav'],final_speecha,fs);
 audiowrite([pathTo,'/',filename,'_speaker.wav'],final_speechb,fs);
 
 
+%% Return number of frames of the written interlocutor's speech
 nframes = length(final_speecha);

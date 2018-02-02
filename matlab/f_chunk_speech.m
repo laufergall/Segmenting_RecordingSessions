@@ -1,6 +1,6 @@
 
 
-function f_chunk_speech(file, path_input, pathTo)
+function f_chunk_speech(path_exported_sv56, file, path_input, pathTo)
 %
 % f_chunk_speech(file, path_input, pathTo)
 %
@@ -8,7 +8,8 @@ function f_chunk_speech(file, path_input, pathTo)
 % is chunked into utterances (to be tagged in a subsequent step).
 %
 % Input:
-%   file: wavfile to chunk
+%	path_exported_sv56: where 'file' is 
+%   file: wavfile to chunk, already level-normalized
 %   pathInput: ../input path, with the IDs_pseudonyms.mat file
 %   pathTo: path where the resulting .mat files will be stored
 %
@@ -46,7 +47,7 @@ audio=struct('audio',[]);
 
 
 %% Read speech file (sv56) and resample to 48 kHz
-[y_read, Fs_read] = audioread(file.name);
+[y_read, Fs_read] = audioread([path_exported_sv56,'/',file.name]);
 y=resample(y_read,Fs,Fs_read);
 
 

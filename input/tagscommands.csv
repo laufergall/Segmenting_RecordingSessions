@@ -41,6 +41,6 @@ play;play again;control
 save;save changes and go on;control
 quit;save and quit;control
 back;go back (to modify tag);control
-g;good dialog turn. The best one for the final version;building dialogs
-b;bad dialog turn. Interrupted or not natural or speaking mitake or noise,..;building dialogs
-changetag;change tag that was assigned in do_tagging;building dialogs
+g;good dialog turn. The best one for the final version;building dialogs (not used)
+b;bad dialog turn. Interrupted or not natural or speaking mitake or noise,..;building dialogs (not used)
+changetag;change tag that was assigned in do_tagging;building dialogs (not used)

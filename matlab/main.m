@@ -26,6 +26,7 @@ path_exported = [path_root,'\all_exported'];
 path_exported_sv56 = [path_root,'\all_exported_sv56'];
 path_chunked = [path_root,'\chunked'];
 path_input = [path_root,'\input'];
+path_executables = [path_root,'\executables'];
 
 path_databasefinal = [path_root,'\NSC_root']; % at least ~150 GB free to allocate the 3 database versions
 path_databasefinal_standmic=[path_databasefinal,'\standmic'];
@@ -61,20 +62,19 @@ end
 f1 = strfind(fn_wav, '_standmic.wav');
 indexes = find(not(cellfun('isempty', f1)));
 
-cd(path_mscripts)
-
 for i=1:length(indexes)
     
     fn=fn_wav{indexes(i)};
     ff=strfind(fn,'_');
     pseudonym= fn(1:ff(1)-1);
+    found=cellfun(@(s) strcmp(s,pseudonym), segmenting.pseudonym);
     
     % check whether this speaker needs to be level-normalized (sv56ed)
     if segmenting.issv56ed(found)==0
         
         % perform sv56 level-normalization.
         disp(['...Level-normalizing: ',pseudonym]);
-        f_apply_sv56(executables, {fn}, path_exported, path_exported_sv56);
+        f_apply_sv56(path_executables, {fn}, path_exported, path_exported_sv56);
         
         % update segmenting.mat
         segmenting.issv56ed(found)=1;
@@ -105,7 +105,7 @@ for i=1:length(files_wav)
         
         % chunk the recording session corresponding to this speaker (pseudonym)
         disp(['...Chunking: ',pseudonym]);
-        f_chunk_speech(files_wav(i), path_input, path_chunked);
+        f_chunk_speech(path_exported_sv56, files_wav(i), path_input, path_chunked);
         
         % update segmenting.mat
         segmenting.issoundanalized(found)=1;
@@ -192,15 +192,15 @@ for spk= 1:length(files_mat)
     % check whether the session needs to be tagged
     if segmenting.isallwritten(found)==0
         
-        % glue files recorded with standup mic
-        allwritten = f_glueingDialogs('standmic', file, hastalkback, path_chunked, path_exported, path_databasefinal);
-%
-        allwritten = f_glueingDialogs_standmic(files_mat(spk), segmenting.hastalkback(found), path_exported, path_databasefinal_standmic);
+        disp(['...Glueing: ',pseudonym]);
         
+        % glue files recorded with standup mic
+        allwritten = f_glueingDialogs('standmic', files_mat(spk), segmenting.hastalkback(found), path_chunked, path_exported, path_databasefinal);
+
         % glue files recorded with tablemic and headsetmic
         if segmenting.has3mics(found)
-            f_glueingDialogs_tablemic(files_mat(spk), segmenting.hastalkback(found), path_exported, path_databasefinal_tablemic);
-            f_glueingDialogs_headsetmic(files_mat(spk), segmenting.hastalkback(found), path_exported, path_databasefinal_headsetmic);
+            f_glueingDialogs('tablemic',files_mat(spk), segmenting.hastalkback(found), path_chunked, path_exported, path_databasefinal);
+            f_glueingDialogs('headsetmic',files_mat(spk), segmenting.hastalkback(found), path_chunked, path_exported, path_databasefinal);
         end
         
         % update segmenting.mat
