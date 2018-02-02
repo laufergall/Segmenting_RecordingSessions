@@ -8,10 +8,11 @@ We conducted 300 speech recording sessions in 2016/2017 at the [Quality and Usab
 This repository contains Matlab scripts for:
 * **segmenting speech recording sessions** - partition speech into sentences, based on detected silences.
 * **tagging speaker turns** -  assign a tag to each of the speech segments, e.g. dialog 1a, emotional speech, questions,...
+* **writing segments in the database structure** according to their tag.
 
 For details on the purpose of employing these scripts, see Section 2 of the [NSC Documentation](http://www.qu.tu-berlin.de/fileadmin/fg41/users/fernandez.laura/NSC_documentation_v01.pdf).
 
-**No audio** or means to recover the speech recording sessions are provided in this repository. Speakers' names are pseudo anonymized.
+**No audio** or means to recover the speech recording sessions are provided in this repository. Speakers names are pseudo anonymized.
 
 ## Steps
 
